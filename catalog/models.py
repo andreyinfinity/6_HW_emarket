@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 NULLABLE = {'null': True, 'blank': True}
 
 
@@ -23,7 +22,6 @@ class Product(models.Model):
 
 
 class Category(models.Model):
-    id = models.ForeignKey('self', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, verbose_name='название')
     description = models.CharField(max_length=500, verbose_name='описание')
 
