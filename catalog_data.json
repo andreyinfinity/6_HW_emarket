@@ -1,0 +1,94 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Костюм Викинга",
+      "description": "Костюм викинга с головным убором и топором",
+      "image": "products/image01.jpg",
+      "category": 1,
+      "price": 12000,
+      "date_create": "2023-11-15T21:06:52.526Z",
+      "date_modification": "2023-11-15T21:06:52.526Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Фероньерка",
+      "description": "Украшение, надеваемое на голову с жемчугом и монетами",
+      "image": "products/image02.jpg",
+      "category": 3,
+      "price": 8500,
+      "date_create": "2023-11-15T21:08:44.492Z",
+      "date_modification": "2023-11-15T21:08:44.492Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Платье Афродиты",
+      "description": "Легкое дизайнерское платье",
+      "image": "products/image17.jpg",
+      "category": 4,
+      "price": 11000,
+      "date_create": "2023-11-15T21:10:23.793Z",
+      "date_modification": "2023-11-15T21:10:23.793Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Маска кошки",
+      "description": "Кожаная маска кошки красного цвета",
+      "image": "products/image13.jpg",
+      "category": 2,
+      "price": 23000,
+      "date_create": "2023-11-15T21:11:07.253Z",
+      "date_modification": "2023-11-15T21:11:07.253Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Карнавальные костюмы",
+      "description": "Костюмы и платья для тематических фотосессий"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Маски",
+      "description": "Маски для тематических вечеринок"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Аксессуары",
+      "description": "Аксессуары для дополнения тематического образа"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Платья",
+      "description": "Дизайнерские платья"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Макияж",
+      "description": "Косметика и аксессуары для профессионального макияжа"
+    }
+  }
+]
