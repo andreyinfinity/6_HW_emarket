@@ -10,12 +10,12 @@
 <!--Header-->
 	<div class="header bg-black">
 		<div class="grid-4 header-nav">
-			<div><a href="/"><img src="/static/images/header/logo.svg" alt="logo"></a></div>
+			<div><a href="{% url 'index' %}"><img src="/static/images/header/logo.svg" alt="logo"></a></div>
 			<div class="grid-4a align-c link-title-2">
 				<a href="#">men</a>
 				<a href="#">women</a>
 				<a href="#">lookbook</a>
-				<a href="contacts/">contacts</a>
+				<a href="{% url 'contacts' %}">contacts</a>
 			</div>
 			<div></div>
 			<div class="grid-4a align-c justify-e">
@@ -56,42 +56,17 @@
 			</div>
 		</div>
 		<div class="grid-4">
+			{% for product in new_products %}
 			<div class="card">
 				<div class="card-img">
-					<img src="/static/images/card/image01.jpg" alt="card">
+					<img src="{{ product.image.url }}" alt="card">
 				</div>
 				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Janitor Coat</div>
-					<div class="sub-3">$160</div>
+					<div class="sub-2">{{ product.name }}</div>
+					<div class="sub-3">{{ product.price }} руб</div>
 				</div>
 			</div>
-			<div class="card">
-				<div class="card-img">
-					<img src="/static/images/card/image19.jpg" alt="card">
-				</div>
-				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Fatigue Pants</div>
-					<div class="sub-3">$108</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-img">
-					<img src="/static/images/card/image02.jpg" alt="card">
-				</div>
-				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">1/4 Zip Pullover</div>
-					<div class="sub-3">$88</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-img">
-					<img src="/static/images/card/image17.jpg" alt="card">
-				</div>
-				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Quilted Overshirt</div>
-					<div class="sub-3">$140</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 <!--Магазин-->
@@ -125,42 +100,17 @@
 			</div>
 		</div>
 		<div class="grid-4">
+			{% for top_item in top_items %}
 			<div class="card">
 				<div class="card-img">
-					<img src="/static/images/card/image08.jpg" alt="card">
+					<img src="{{ top_item.image.url }}" alt="card">
 				</div>
 				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Fatigue Pants</div>
-					<div class="sub-3">$108</div>
+					<div class="sub-2">{{ top_item.name }}</div>
+					<div class="sub-3">{{ top_item.price }} руб</div>
 				</div>
 			</div>
-			<div class="card">
-				<div class="card-img">
-					<img src="/static/images/card/image11.jpg" alt="card">
-				</div>
-				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Mindset Tour Jacket</div>
-					<div class="sub-3">$156</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-img">
-					<img src="/static/images/card/image13.jpg" alt="card">
-				</div>
-				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Oval Signet Ring</div>
-					<div class="sub-3">$130</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-img">
-					<img src="/static/images/card/image07.jpg" alt="card">
-				</div>
-				<div class="grid-2a justify-sb mt-1">
-					<div class="sub-2">Athletic T-Shirt</div>
-					<div class="sub-3">$34</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 <!--Footer-->

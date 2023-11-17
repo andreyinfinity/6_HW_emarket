@@ -9,7 +9,8 @@
       "category": 1,
       "price": 12000,
       "date_create": "2023-11-15T21:06:52.526Z",
-      "date_modification": "2023-11-15T21:06:52.526Z"
+      "date_modification": "2023-11-15T21:06:52.526Z",
+      "viewed": 10
     }
   },
   {
@@ -22,7 +23,8 @@
       "category": 3,
       "price": 8500,
       "date_create": "2023-11-15T21:08:44.492Z",
-      "date_modification": "2023-11-15T21:08:44.492Z"
+      "date_modification": "2023-11-15T21:08:44.492Z",
+      "viewed": 12
     }
   },
   {
@@ -35,12 +37,13 @@
       "category": 4,
       "price": 11000,
       "date_create": "2023-11-15T21:10:23.793Z",
-      "date_modification": "2023-11-15T21:10:23.793Z"
+      "date_modification": "2023-11-15T21:10:23.793Z",
+      "viewed": 13
     }
   },
   {
     "model": "catalog.product",
-    "pk": 4,
+    "pk": 5,
     "fields": {
       "name": "Маска кошки",
       "description": "Кожаная маска кошки красного цвета",
@@ -48,7 +51,92 @@
       "category": 2,
       "price": 23000,
       "date_create": "2023-11-15T21:11:07.253Z",
-      "date_modification": "2023-11-15T21:11:07.253Z"
+      "date_modification": "2023-11-15T21:11:07.253Z",
+      "viewed": 18
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name": "Костюм эльфийки",
+      "description": "Эльфийский костюм, украшенный цветами",
+      "image": "products/image19.jpg",
+      "category": 1,
+      "price": 9500,
+      "date_create": "2023-11-17T08:44:17.381Z",
+      "date_modification": "2023-11-17T08:44:17.381Z",
+      "viewed": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+      "name": "Платье летнее",
+      "description": "Летнее фиолетовое платье",
+      "image": "products/image18.jpg",
+      "category": 4,
+      "price": 7900,
+      "date_create": "2023-11-17T08:45:31.385Z",
+      "date_modification": "2023-11-17T08:45:31.385Z",
+      "viewed": 5
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+      "name": "Кисть для макияжа",
+      "description": "Кисть для макияжа",
+      "image": "products/image11.jpg",
+      "category": 5,
+      "price": 2100,
+      "date_create": "2023-11-17T08:46:38.939Z",
+      "date_modification": "2023-11-17T08:46:38.939Z",
+      "viewed": 4
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+      "name": "Цветы искусственные",
+      "description": "Искусственные цветы для фотосессий",
+      "image": "products/image10.jpg",
+      "category": 3,
+      "price": 1100,
+      "date_create": "2023-11-17T08:47:30.417Z",
+      "date_modification": "2023-11-17T08:47:30.417Z",
+      "viewed": 7
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 10,
+    "fields": {
+      "name": "Фероньерка",
+      "description": "Фероньерка для мужчин",
+      "image": "products/image08.jpg",
+      "category": 3,
+      "price": 3200,
+      "date_create": "2023-11-17T08:48:24.241Z",
+      "date_modification": "2023-11-17T08:48:24.241Z",
+      "viewed": 5
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+      "name": "Корона Снежной королевы",
+      "description": "Корона Снежной королевы",
+      "image": "products/image07.jpg",
+      "category": 3,
+      "price": 1400,
+      "date_create": "2023-11-17T08:49:22.570Z",
+      "date_modification": "2023-11-17T08:49:22.570Z",
+      "viewed": 2
     }
   },
   {
@@ -89,6 +177,16 @@
     "fields": {
       "name": "Макияж",
       "description": "Косметика и аксессуары для профессионального макияжа"
+    }
+  },
+  {
+    "model": "catalog.contacts",
+    "pk": 1,
+    "fields": {
+      "name": "Центральный офис",
+      "address": "г. Казань, ул. Солдатская, д. 8, оф. 202",
+      "phone": "+78432530205",
+      "email": "infinity@studio.ru"
     }
   }
 ]

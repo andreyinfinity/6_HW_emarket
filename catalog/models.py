@@ -11,6 +11,7 @@ class Product(models.Model):
     price = models.IntegerField()
     date_create = models.DateTimeField(auto_now_add=True)
     date_modification = models.DateTimeField(auto_now=True)
+    viewed = models.IntegerField(default=1, verbose_name='количество просмотров')
 
     def __str__(self):
         return f'{self.name} ({self.description})\n{self.price}'
@@ -31,4 +32,19 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория товаров'
         verbose_name_plural = 'Категории товаров'
+        ordering = ('name',)
+
+
+class Contacts(models.Model):
+    name = models.CharField(max_length=200, verbose_name='название офиса')
+    address = models.CharField(max_length=200, verbose_name='адрес офиса')
+    phone = models.CharField(max_length=12, verbose_name='телефон')
+    email = models.EmailField(verbose_name='e-mail')
+
+    def __str__(self):
+        return f'{self.name}\n{self.address}'
+
+    class Meta:
+        verbose_name = 'Контакты'
+        verbose_name_plural = 'Контакты'
         ordering = ('name',)
