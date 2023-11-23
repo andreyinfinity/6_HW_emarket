@@ -11,11 +11,15 @@ a {
 }
 a:visited {
     text-decoration: none;
-    color: white;
+/*    color: white;*/
 }
 a:link {
     text-decoration: none;
-    color: white;
+/*    color: white;*/
+}
+input[type=file] {
+    display: block;
+    z-index: -1;
 }
 
 /* COLORS */
@@ -340,6 +344,10 @@ a:link {
     grid-template-columns: auto auto auto auto;
     grid-column-gap: 20px;
 }
+.flex {
+    display: flex;
+    gap: 20px;
+}
 .align-c {
     align-items: center;
 }
@@ -424,4 +432,8 @@ a:link {
     padding-left: calc((100vw - 970px)/2);
     margin-top: 200px;
     text-align: center;
+}
+.id_image {
+    opacity: 0;
+    visibility: hidden;
 }

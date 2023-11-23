@@ -1,0 +1,17 @@
+<!--Страница каталога товаров-->
+
+{% extends 'catalog/base.html' %}
+{% block content %}
+<!--Catalog-->
+<div class="section bg-white py-5">
+	<div class="h1 text-black">
+		collection
+	</div>
+	<div class="grid-4">
+		{% for product in object_list %}
+			{% include 'catalog/includes/card.html'%}
+		{% endfor %}
+	</div>
+	{% include 'catalog/includes/pagination.html'%}
+</div>
+{% endblock %}

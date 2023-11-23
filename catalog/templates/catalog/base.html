@@ -1,0 +1,46 @@
+<!--Основной шаблон сайта-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ title }}</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+<body>
+<!--Header-->
+	<div class="header bg-black">
+		<div class="grid-4 header-nav">
+			<div>
+				<a href="{% url 'catalog:index' %}">
+					<img src="{% static 'images/header/logo.svg' %}" alt="logo">
+				</a>
+			</div>
+			{% include 'catalog/includes/header_menu.html'%}
+			<div></div>
+			<div class="grid-4a align-c justify-e">
+				<a href="#"><img src="{% static 'images/header/Search.svg' %}" alt="search"></a>
+				<a href="#"><img src="{% static 'images/header/Profile.svg' %}" alt="profile"></a>
+				<a href="#"><img src="{% static 'images/header/Favorite.svg' %}" alt="favorite"></a>
+				<a href="#"><img src="{% static 'images/header/Bag.svg' %}" alt="bag"></a>
+			</div>
+		</div>
+	</div>
+	{% block content %}
+	{% endblock %}
+<!--Footer-->
+	<div class="section bg-black mt-6 py-5 text-white">
+		<div class="grid-2">
+			<div>
+				<img style="opacity: 0.1;" src="{% static 'images/footer/logo-big.svg' %}" alt="logo">
+			</div>
+			<div class="grid-4a sub-3 justify-sb">
+				<div>navigation</div>
+				<div>info</div>
+				<div>socials</div>
+				<div>sign up for newsletter</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

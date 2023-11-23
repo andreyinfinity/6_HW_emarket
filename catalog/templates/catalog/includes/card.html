@@ -1,0 +1,13 @@
+<!--Шаблон карточки товара в каталоге-->
+
+<div class="card">
+	<div class="card-img mt-5">
+		<a href="{% url 'catalog:product' product.pk %}">
+			<img src="{{ product.image.url }}" alt="{{ product.name }}">
+		</a>
+	</div>
+	<div class="grid-2a justify-sb mt-1">
+		<div class="sub-2">{{ product.name|slice:":25" }}</div>
+		<div class="sub-3">{{ product.price }} руб</div>
+	</div>
+</div>

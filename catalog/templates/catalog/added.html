@@ -1,0 +1,21 @@
+<!--Страница при успешном добавлении товара-->
+
+{% extends 'catalog/base.html' %}
+<!--{% load static %}-->
+{% block content %}
+<!--Add Product-->
+<div class="section mt-5">
+    <div class="pb-5 line-b">
+        <div class="h1">item added successfully</div>
+    </div>
+    <div class="grid-4a mt-5">
+        <form action="{% url 'catalog:add' %}">
+            <button class="button-light-w">add more</button>
+        </form>
+        <form action="{% url 'catalog:index' %}">
+            <button class="button-light-w">to main</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
