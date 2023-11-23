@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 NULLABLE = {'null': True, 'blank': True}
 
@@ -52,3 +51,19 @@ class Contacts(models.Model):
         verbose_name = 'Контакты'
         verbose_name_plural = 'Контакты'
         ordering = ('name',)
+
+
+class Feedback(models.Model):
+    """Модель для записи данных из формы обратной связи"""
+    name = models.CharField(max_length=50, verbose_name='Имя клиента')
+    phone = models.CharField(max_length=20, verbose_name='телефон')
+    email = models.EmailField(verbose_name='e-mail')
+    message = models.TextField(verbose_name='сообщение')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='дата обращения')
+
+    def __str__(self):
+        return f'{self.name}: {self.message}'
+
+    class Meta:
+        verbose_name = "Обратная связь"
+        ordering = ('-date',)

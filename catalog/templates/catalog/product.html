@@ -1,12 +1,12 @@
 <!--Страница товара-->
 
 {% extends 'catalog/base.html' %}
-{% load static %}
+{% load my_tags %}
 {% block content %}
-<!--Catalog-->
+<!--Product-->
 <div class="section bg-white py-5 grid-2">
 	<div>
-		<img src="{{ product.image.url }}" alt="{{ product.name }}" class="big-card">
+		<img src="{% mediapath product.image %}" alt="{{ product.name }}" class="big-card">
 	</div>
 	<div>
 		<div class="h2 text-black">

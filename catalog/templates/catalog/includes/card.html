@@ -1,9 +1,9 @@
 <!--Шаблон карточки товара в каталоге-->
-
+{% load my_tags %}
 <div class="card">
 	<div class="card-img mt-5">
 		<a href="{% url 'catalog:product' product.pk %}">
-			<img src="{{ product.image.url }}" alt="{{ product.name }}">
+			<img src="{{ product.image|mymedia }}" alt="{{ product.name }}">
 		</a>
 	</div>
 	<div class="grid-2a justify-sb mt-1">
