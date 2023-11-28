@@ -24,14 +24,19 @@ At P&Co we live by 3 core values - creativity quality & pride. These 3 values he
 			</div>
 		</div>
 		<div>
-			<form class="forms" method="post">
-				{% csrf_token %}
-				<input class="form field-title" type="text" name="name" placeholder="Name*">
-				<input class="form field-title" type="text" name="phone" placeholder="Number phone">
-				<input class="form field-title" type="email" name="email" placeholder="E-mail">
-				<textarea class="form field-title" name="message" placeholder="Your question"></textarea>
-				<input class="button-light-w" type="submit" value="hire us">
-			</form>
+			<form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <input class="button-light-w" type="submit" value="Save">
+            </form>
+<!--			<form class="forms" method="post">-->
+<!--				{% csrf_token %}-->
+<!--				<input class="form field-title" type="text" name="name" placeholder="Name*">-->
+<!--				<input class="form field-title" type="text" name="phone" placeholder="Number phone">-->
+<!--				<input class="form field-title" type="email" name="email" placeholder="E-mail">-->
+<!--				<textarea class="form field-title" name="message" placeholder="Your question"></textarea>-->
+<!--				<input class="button-light-w" type="submit" value="hire us">-->
+<!--			</form>-->
 		</div>
 	</div>
 </div>

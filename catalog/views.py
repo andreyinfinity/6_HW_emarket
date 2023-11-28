@@ -1,41 +1,58 @@
-from django.shortcuts import render
+
 from django.views import generic
-
-from .forms import ProductForm
-from .models import Product, Contacts
-
-# Create your views here.
+from .forms import ProductForm, FeedbackForm
+from .models import Product, Contacts, Feedback
 
 
-def index(request):
-    """Функция отображения главной страницы"""
-    new_products = Product.objects.order_by('-date_modification')[:4]
-    print(new_products)
-    top_items = Product.objects.order_by('-viewed')[:4]
-    return render(request=request, template_name='catalog/home.html',
-                  context={'new_products': new_products,
-                           'top_items': top_items,
-                           'title': 'Provision&Co'})
+class IndexView(generic.TemplateView):
+    """Класс отображения главной страницы
+    переопределен метод context для получения последних 4-х продуктов и топ 4 продуктов"""
+    model = Product
+    template_name = 'catalog/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['new_products'] = Product.objects.order_by('-date_modification')[:4]
+        context['top_items'] = Product.objects.order_by('-viewed')[:4]
+        context['title'] = 'Provision&Co'
+        return context
 
 
-def contacts(request):
-    """Функция отображения страницы контактов"""
-    cont = Contacts.objects.get()
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        email = request.POST.get('email')
-        message = request.POST.get('message')
-        print(f'Name: {name}, phone: {phone}, email: {email}. {message}')
-    return render(request=request, template_name='catalog/contacts.html',
-                  context={'contacts': cont,
-                           'title': 'Контакты'})
+class ContactsCreateView(generic.CreateView):
+    """Класс контактной информации. Выводится модель Contacts и создается форма Feedback"""
+    model = Feedback
+    form_class = FeedbackForm
+    template_name = 'catalog/contacts.html'
+    success_url = '/contacts'
+
+    def get_context_data(self, **kwargs):
+        """Вывод контактной информации из модели Contacts"""
+        context = super().get_context_data()
+        context['contacts'] = Contacts.objects.get()
+        context['title'] = 'Контакты'
+        return context
 
 
-class ProductView(generic.DetailView):
-    """Класс отображения карточки товара"""
+class ProductDetailView(generic.DetailView):
+    """Класс отображения подробной информации о товаре и список
+    топ товаров по просмотрам в этой же категории"""
     model = Product
     template_name = 'catalog/product.html'
+
+    def get_object(self, queryset=None):
+        """Метод увеличения количества просмотров"""
+        self.object = super().get_object(queryset)
+        self.object.viewed += 1
+        self.object.save()
+        return self.object
+
+    def get_context_data(self, *args, **kwargs):
+        """Метод вывода товаров из той же категории сортированный по просмотрам"""
+        context = super().get_context_data(**kwargs)
+        same_products = Product.objects.filter(
+            category=self.object.category).exclude(pk=self.object.pk).order_by('-viewed')[:4]
+        context['same_products'] = same_products
+        return context
 
 
 class CatalogView(generic.ListView):
