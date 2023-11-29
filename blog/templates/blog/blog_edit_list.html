@@ -1,0 +1,20 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<!--Blog List-->
+<div class="section bg-white py-5">
+	<div class="h1 text-black">
+		Blog
+	</div>
+	<a href="{% url 'blog:create' %}">
+		<button class="button-light">create article</button>
+	</a>
+	<div class="grid-2 my-3">
+		{% for object in object_list %}
+		<div>
+			{% include 'blog/includes/blog_card.html'%}
+			{% include 'blog/includes/edit_buttons.html'%}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

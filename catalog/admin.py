@@ -3,7 +3,6 @@ from django.contrib import admin
 from catalog.models import Category, Product, Contacts
 
 
-# Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Отображение списка категорий товаров"""

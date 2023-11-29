@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<!--Blog Detail-->
+<div class="section bg-white py-5">
+	<div class="h2 text-black">
+		{{ object.title }}
+	</div>
+	<div class="grid-2">
+		<div class="blog-img">
+			<img src="{{ object.preview.url }}" alt="{{ object.title }}">
+		</div>
+		<div class="text-2 text-black">
+			{{ object.message }}
+		</div>
+	</div>
+	<div class="grid-2a justify-sb mt-4">
+		<div class="text-3">
+			Дата публикации: {{ object.date }}
+		</div>
+		<div class="text-3">
+			Количество просмотров: {{ object.viewed }}
+		</div>
+	</div>
+
+</div>
+{% endblock %}

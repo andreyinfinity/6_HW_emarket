@@ -1,0 +1,19 @@
+<!--Шаблон карточки публикации в каталоге блога-->
+{% load my_tags %}
+<div class="blog-card p-3">
+	<a href="{% url 'blog:view' object.slug %}"
+		{% if object.visibility %}
+		class="text-black"
+		{% else %}
+		class="text-grey"
+	    {% endif %}>
+		<div class="grid-2a justify-sb">
+			<div class="sub-2">{{ object.title|slice:":25" }}</div>
+			<div>Дата публикации: {{ object.date }}</div>
+		</div>
+	<div class="blog-img my-3">
+		<img src="{{ object.preview|mymedia }}" alt="{{ object.title }}">
+	</div>
+	<div class="sub-3">{{ object.message|slice:":100" }}</div>
+	</a>
+</div>

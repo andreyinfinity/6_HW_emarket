@@ -1,4 +1,3 @@
-
 from django.views import generic
 from .forms import ProductForm, FeedbackForm
 from .models import Product, Contacts, Feedback
@@ -11,6 +10,7 @@ class IndexView(generic.TemplateView):
     template_name = 'catalog/home.html'
 
     def get_context_data(self, **kwargs):
+        """Метод для отображения списков продуктов, отсортированных по дате и просмотрам"""
         context = super().get_context_data()
         context['new_products'] = Product.objects.order_by('-date_modification')[:4]
         context['top_items'] = Product.objects.order_by('-viewed')[:4]
@@ -19,7 +19,7 @@ class IndexView(generic.TemplateView):
 
 
 class ContactsCreateView(generic.CreateView):
-    """Класс контактной информации. Выводится модель Contacts и создается форма Feedback"""
+    """Класс получения контактной информации от посетителя. Выводится модель Contacts и создается форма Feedback"""
     model = Feedback
     form_class = FeedbackForm
     template_name = 'catalog/contacts.html'

@@ -19,6 +19,7 @@ class ProductForm(forms.ModelForm):
 
 
 class FeedbackForm(forms.ModelForm):
+    """Форма получения обратной связи от посетителя"""
     class Meta:
         model = Feedback
         fields = ['name', 'phone', 'email', 'message']

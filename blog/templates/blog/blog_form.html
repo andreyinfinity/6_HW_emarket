@@ -1,0 +1,34 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<div class="section mt-5">
+	<div class="h1">create article</div>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+<!--		<input class="form field-title"-->
+<!--			   type="{{ form.title.field.widget.input_type }}"-->
+<!--			   name="{{ form.title.name }}"-->
+<!--			   placeholder="{{ form.title.label }}">-->
+<!--		<textarea class="form field-title"-->
+<!--				  rows="10"-->
+<!--				  name="{{ form.message.name }}"-->
+<!--				  placeholder="{{ form.message.label }}"></textarea>-->
+<!--		<div class="grid-2a align-e justify-sb">-->
+<!--			<div>-->
+<!--				<label for="{{ form.preview.id_for_label }}">{{ form.preview.label }}</label>-->
+<!--				<input class="button-light mt-1"-->
+<!--					   type="{{ form.preview.field.widget.input_type }}"-->
+<!--					   name="{{ form.preview.name }}"-->
+<!--					   id="{{ form.preview.id_for_label }}"-->
+<!--					   accept="image/*">-->
+<!--			</div>-->
+				{{ form.as_div }}
+			<div>
+				<a href="{% url 'blog:blog' %}" class="button-light-w mx-1">cancel</a>
+				<input class="button-light-w" type="submit" value="Save">
+			</div>
+<!--		</div>-->
+
+	</form>
+
+</div>
+{% endblock %}
