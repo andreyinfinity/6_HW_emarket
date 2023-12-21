@@ -1,0 +1,16 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<div class="section mt-5">
+
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+        <div class="h2">Вы хотите удалить {{ product.name }}?</div>
+        <div>
+            <a href="{% url 'product:list' %}" class="button-light-w mx-1">cancel</a>
+          <button class="button-light-w" type="submit" >delete</button>
+        </div>
+
+	</form>
+
+</div>
+{% endblock %}

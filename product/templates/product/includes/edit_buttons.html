@@ -1,0 +1,10 @@
+<div class="grid-4a my-3">
+	<a href="{% url 'blog:view' object.slug %}" class="button-light-sm">view</a>
+	<a href="{% url 'blog:update' object.pk %}" class="button-light-sm">edit</a>
+	{% if object.visibility %}
+	<a href="{% url 'blog:toggle_visibility' object.pk %}" class="button-light-sm">hide</a>
+	{% else %}
+	<a href="{% url 'blog:toggle_visibility' object.pk %}" class="button-light-sm">show</a>
+	{% endif %}
+	<a href="{% url 'blog:delete' object.pk %}" class="button-light-sm">delete</a>
+</div>

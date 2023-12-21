@@ -1,5 +1,5 @@
 from django.views import generic
-from .forms import ProductForm, FeedbackForm
+from .forms import FeedbackForm
 from .models import Product, Contacts, Feedback
 
 
@@ -61,16 +61,3 @@ class CatalogView(generic.ListView):
     template_name = 'catalog/catalog.html'
     paginate_by = 8
 
-
-class ProductAdd(generic.CreateView):
-    """Класс добавления товара в БД"""
-    model = Product
-    form_class = ProductForm
-    template_name = 'catalog/add.html'
-    success_url = '/added'
-
-
-class ProductAdded(generic.TemplateView):
-    """Класс отображения страницы успешного добавления товара"""
-    model = Product
-    template_name = 'catalog/added.html'
