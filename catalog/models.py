@@ -1,12 +1,21 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 NULLABLE = {'null': True, 'blank': True}
 
 
+def check_bad_words(words: str):
+    """Функция проверки запрещенного слова"""
+    words_list = words.split(' ')
+    for word in words_list:
+        if word.strip('.,?!') in ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']:
+            raise ValidationError('вы используете запрещенное слово')
+
+
 class Product(models.Model):
     """Модель описания товара"""
-    name = models.CharField(max_length=200, verbose_name='название')
-    description = models.CharField(max_length=500, verbose_name='описание')
+    name = models.CharField(max_length=200, verbose_name='название', validators=[check_bad_words])
+    description = models.CharField(max_length=500, verbose_name='описание', validators=[check_bad_words])
     image = models.ImageField(upload_to='products/', verbose_name='изображение')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='категория')
     price = models.IntegerField(verbose_name='стоимость')

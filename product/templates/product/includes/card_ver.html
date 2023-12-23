@@ -1,0 +1,19 @@
+<!--Шаблон карточки товара для менеджера-->
+{% load my_tags %}
+<div class="card">
+	<div class="card-img mt-5">
+		<a href="{% url 'product:update_ver' object.pk %}">
+			Продукт: <br> {{ object.product }} <br><br>
+			Активность: {{ object.is_active }}
+		</a>
+	</div>
+	<br>Версия продукта:
+	<div class="grid-2a justify-sb mt-1">
+		<div class="sub-2">{{ object.name|slice:":25" }}</div>
+		<div class="sub-3">{{ object.num }} версия</div>
+	</div>
+	<div class="my-3">
+		<a href="{% url 'product:update_ver' object.pk %}" class="button-light-sm">update</a>
+		<a href="{% url 'product:delete_ver' object.pk %}" class="button-light-sm">delete</a>
+	</div>
+</div>

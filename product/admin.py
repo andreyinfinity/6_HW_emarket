@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from product.models import Version
+
+
+@admin.register(Version)
+class VersionAdmin(admin.ModelAdmin):
+    """Отображение списка категорий товаров"""
+    list_display = ('id', 'name',)

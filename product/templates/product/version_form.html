@@ -1,4 +1,4 @@
-<!--Страница для добавления товаров в БД-->
+<!--Страница для добавления версий в БД-->
 {% extends 'catalog/base.html' %}
 {% block content %}
 <!--Add Product-->
@@ -7,18 +7,10 @@
         <div class="h1">add new item</div>
         <div class="sub-1 text-light-grey">Provision&co</div>
     </div>
-    <div class="text-red">{{ error }}</div>
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="grid-2 mt-5">
         <div>
-            <p>Версия продукта</p>
-            {{ formset.management_form }}
-            {{ formset.non_field_errors }}
-            {% for form in formset.forms %}
-            {{ form.as_div }}
-            <hr>
-            {% endfor %}
         </div>
         <div>
             {{ form.as_div }}

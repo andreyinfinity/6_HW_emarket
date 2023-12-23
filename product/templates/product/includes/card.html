@@ -10,6 +10,17 @@
 		<div class="sub-2">{{ product.name|slice:":25" }}</div>
 		<div class="sub-3">{{ product.price }} руб</div>
 	</div>
+	{% if product.ver_num is not None %}
+	<div class="grid-2a justify-sb mt-1">
+		<div class="sub-3">Версия продукта:</div>
+		<div class="sub-3"></div>
+	</div>
+		<div class="grid-2a justify-sb mt-1">
+		<div class="sub-2">{{ product.ver_name }}</div>
+		<div class="sub-3">{{ product.ver_num }}</div>
+	</div>
+	{% else %}
+	{% endif %}
 	<div class="my-3">
 		<a href="{% url 'product:update' product.pk %}" class="button-light-sm">update</a>
 		<a href="{% url 'product:delete' product.pk %}" class="button-light-sm">delete</a>
