@@ -13,9 +13,10 @@
     <div class="grid-2 mt-5">
         <div>
             <p>Версия продукта</p>
-            {{ formset.management_form }}
-            {{ formset.non_field_errors }}
             {% for form in formset.forms %}
+            {{ formset.management_form }}
+<!--            {{ formset.non_field_errors }}-->
+
             {{ form.as_div }}
             <hr>
             {% endfor %}

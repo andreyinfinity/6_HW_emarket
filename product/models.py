@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 
 class Version(models.Model):
@@ -12,7 +13,17 @@ class Version(models.Model):
         return f'{self.name} {self.num}'
 
     class Meta:
-        unique_together = [['num', 'product']]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['product'],
+                condition=Q(is_active=True),
+                name='only_one_active_version_for_product'
+            ),
+            models.UniqueConstraint(
+                fields=['num', 'product'],
+                name='unique_together_version_num_and_product'
+            )]
+        # unique_together = [['num', 'product']]
         verbose_name = 'версия'
         verbose_name_plural = 'версии'
         ordering = ('-num',)

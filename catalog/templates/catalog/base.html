@@ -21,7 +21,12 @@
 			<div></div>
 			<div class="grid-4a align-c justify-e">
 				<a href="#"><img src="{% static 'images/header/Search.svg' %}" alt="search"></a>
-				<a href="#"><img src="{% static 'images/header/Profile.svg' %}" alt="profile"></a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'users:logout' %}" class="text-white">Logout</a>
+				{% else %}
+				<a href="{% url 'users:login' %}" class="text-white">Login</a>
+				<a href="{% url 'users:register' %}" class="text-white">Register</a>
+				{% endif %}
 				<a href="#"><img src="{% static 'images/header/Favorite.svg' %}" alt="favorite"></a>
 				<a href="#"><img src="{% static 'images/header/Bag.svg' %}" alt="bag"></a>
 			</div>

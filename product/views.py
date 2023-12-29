@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.forms import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -62,14 +64,15 @@ class ProductUpdate(generic.UpdateView):
     def form_valid(self, form):
         """Валидация формсета и проверка условия не более 1й активной версии"""
         formset = self.get_context_data()['formset']
-        self.object = form.save()
+        self.object = form.save(commit=False)
         if formset.is_valid():
+            formset.save(commit=False)
             formset.instance = self.object
-            if not valid_active_version(formset.cleaned_data):
-                context = {'formset': formset,
-                           'form': form,
-                           'error': 'Выберите не более 1 активной версии продукта!'}
-                return render(self.request, 'product/product_form.html', context)
+            # if not valid_active_version(formset.cleaned_data):
+            #     context = {'formset': formset,
+            #                'form': form,
+            #                'error': 'Выберите не более 1 активной версии продукта!'}
+            #     return render(self.request, 'product/product_form.html', context)
             formset.save()
         return super().form_valid(form)
 
@@ -126,13 +129,13 @@ class VersionDelete(generic.DeleteView):
     success_url = reverse_lazy('product:list_ver')
 
 
-def valid_active_version(cleaned_data):
-    """Функция проверки количества активных версий в формсете"""
-    n = 0
-    for data in cleaned_data:
-        if data.get('is_active'):
-            n += 1
-            if n > 1:
-                return False
-    return True
-
+# def valid_active_version(cleaned_data):
+#     """Функция проверки количества активных версий в формсете"""
+#     n = 0
+#     for data in cleaned_data:
+#         if data.get('is_active'):
+#             n += 1
+#             if n > 1:
+#                 return False
+#     return True
+#

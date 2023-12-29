@@ -56,14 +56,14 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
         model = Version
         fields = '__all__'
 
-    def clean(self):
-        """Проверка на уникальность пары полей num и product_pk.
-        Для конкретного продукта номера версий должны различаться"""
-        cleaned_data = self.cleaned_data
-        num = cleaned_data.get('num')
-        prod_pk = cleaned_data.get('product').pk
-        # Проверяем менялось ли поле num, если нет, пропускаем проверку
-        if 'num' in self.changed_data:
-            # Если значение num для продукта уже есть в БД, вызываем исключение
-            if Version.objects.filter(product=prod_pk, num=num).exists():
-                raise ValidationError("Такая версия продукта уже есть")
+    # def clean(self):
+    #     """Проверка на уникальность пары полей num и product_pk.
+    #     Для конкретного продукта номера версий должны различаться"""
+    #     cleaned_data = self.cleaned_data
+    #     num = cleaned_data.get('num')
+    #     prod_pk = cleaned_data.get('product').pk
+    #     # Проверяем менялось ли поле num, если нет, пропускаем проверку
+    #     if 'num' in self.changed_data:
+    #         # Если значение num для продукта уже есть в БД, вызываем исключение
+    #         if Version.objects.filter(product=prod_pk, num=num).exists():
+    #             raise ValidationError("Такая версия продукта уже есть")
