@@ -1,31 +1,33 @@
-from django.contrib import messages
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 from catalog.models import Product
 from product.forms import ProductForm, VersionForm
 from product.models import Version
-
-
 # CRUD для товаров
 
 
-class ProductCreate(generic.CreateView):
+class ProductCreate(LoginRequiredMixin, generic.CreateView):
     """Класс добавления товара в БД"""
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('product:list')
     template_name = 'product/product_form.html'
+    login_url = 'users:login'
+
+    def form_valid(self, form):
+        product = form.save(commit=False)
+        product.owner = self.request.user
+        product.save()
+        return super().form_valid(form)
 
 
-class ProductList(generic.ListView):
+class ProductList(LoginRequiredMixin, generic.ListView):
     """Класс отображения страницы с товарами"""
     model = Product
     template_name = 'product/product_list.html'
+    login_url = 'users:login'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Для вывода активной версии продукта в шаблон"""
@@ -44,12 +46,13 @@ class ProductList(generic.ListView):
         return context_data
 
 
-class ProductUpdate(generic.UpdateView):
+class ProductUpdate(LoginRequiredMixin, generic.UpdateView):
     """Класс изменения товара"""
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('product:list')
     template_name = 'product/product_form.html'
+    login_url = 'users:login'
 
     def get_context_data(self, **kwargs):
         """Формсет для отображения формы версий продуктов при редактировании продукта"""
@@ -77,18 +80,20 @@ class ProductUpdate(generic.UpdateView):
         return super().form_valid(form)
 
 
-class ProductDelete(generic.DeleteView):
+class ProductDelete(LoginRequiredMixin, generic.DeleteView):
     """Класс удаления товара"""
     model = Product
     success_url = reverse_lazy('product:list')
     template_name = 'product/product_confirm_delete.html'
+    login_url = 'users:login'
 
 
-class VersionCreate(generic.CreateView):
+class VersionCreate(LoginRequiredMixin, generic.CreateView):
     """Класс добавления товара в БД"""
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('product:list_ver')
+    login_url = 'users:login'
 
     def form_valid(self, form):
         """Метод для задания активной версии продукта, активность других
@@ -101,16 +106,18 @@ class VersionCreate(generic.CreateView):
         return super().form_valid(form)
 
 
-class VersionList(generic.ListView):
+class VersionList(LoginRequiredMixin, generic.ListView):
     """Класс отображения страницы с товарами"""
     model = Version
+    login_url = 'users:login'
 
 
-class VersionUpdate(generic.UpdateView):
+class VersionUpdate(LoginRequiredMixin, generic.UpdateView):
     """Класс изменения товара"""
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('product:list_ver')
+    login_url = 'users:login'
 
     def form_valid(self, form):
         """Метод для задания активной версии продукта, активность других
@@ -123,10 +130,11 @@ class VersionUpdate(generic.UpdateView):
         return super().form_valid(form)
 
 
-class VersionDelete(generic.DeleteView):
+class VersionDelete(LoginRequiredMixin, generic.DeleteView):
     """Класс удаления товара"""
     model = Version
     success_url = reverse_lazy('product:list_ver')
+    login_url = 'users:login'
 
 
 # def valid_active_version(cleaned_data):

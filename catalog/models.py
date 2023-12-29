@@ -22,6 +22,7 @@ class Product(models.Model):
     date_create = models.DateTimeField(auto_now_add=True)
     date_modification = models.DateTimeField(auto_now=True)
     viewed = models.IntegerField(default=1, verbose_name='количество просмотров')
+    owner = models.ForeignKey(to='users.User',  on_delete=models.SET_NULL, verbose_name='владелец', **NULLABLE)
 
     def __str__(self):
         return f'{self.name} ({self.description})\n{self.price}'

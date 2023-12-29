@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from config.settings import EMAIL_HOST_USER
-from users.forms import UserRegisterForm
+from users.forms import UserRegisterForm, UserForm, RecoveryForm
 from users.models import User
 
 
@@ -35,6 +35,7 @@ class RegisterView(generic.CreateView):
             email.send()
 
             return HttpResponse('Пожалуйста перейдите по ссылке, которая отправлена вам на электронную почту')
+        return super().form_valid(form)
 
 
 def activate(request, code):
@@ -50,3 +51,37 @@ def activate(request, code):
         return HttpResponseRedirect(reverse_lazy('users:login'))
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         return HttpResponse('Ссылка для активации неверная!')
+
+
+class UserUpdateView(generic.UpdateView):
+    model = User
+    success_url = reverse_lazy('users:profile')
+    form_class = UserForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class RecoveryPassword(generic.CreateView):
+    """Контроллер восстановления пароля"""
+    model = User
+    form_class = RecoveryForm
+    template_name = 'users/recovery_password_form.html'
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return HttpResponse('Пользователя с таким email не существует!')
+        # генерация нового пароля и его запись
+        new_pass = User.objects.make_random_password()
+        user.set_password(new_pass)
+        user.save()
+        # создаем и отправляем письмо с новым паролем
+        mail_subject = 'Вы запросили сброс пароля'
+        message = (f"Ваш новый пароль\n"
+                   f"{new_pass}")
+        email = EmailMessage(subject=mail_subject, body=message, to=[email], from_email=EMAIL_HOST_USER)
+        email.send()
+        return HttpResponseRedirect(reverse_lazy('users:login'))
