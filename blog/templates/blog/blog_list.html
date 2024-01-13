@@ -5,9 +5,11 @@
 	<div class="h1 text-black">
 		Blog
 	</div>
+	{% if perms.blog.add_blog %}
 	<a href="{% url 'blog:blog_edit' %}">
 		<button class="button-light">edit blog</button>
 	</a>
+	{% endif %}
 	<div class="grid-2 my-3">
 		{% for object in object_list %}
 		<div>

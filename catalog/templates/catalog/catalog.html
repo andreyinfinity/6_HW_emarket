@@ -9,7 +9,9 @@
 	</div>
 	<div class="grid-4">
 		{% for product in object_list %}
+			{% if product.is_published %}
 			{% include 'catalog/includes/card.html'%}
+			{% endif %}
 		{% endfor %}
 	</div>
 	{% include 'catalog/includes/pagination.html'%}

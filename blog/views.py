@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -6,10 +7,11 @@ from blog.models import Blog
 # CRUD
 
 
-class BlogCreateView(generic.CreateView):
+class BlogCreateView(PermissionRequiredMixin, generic.CreateView):
     model = Blog
     fields = ['title', 'message', 'preview']
     success_url = reverse_lazy('blog:blog_edit')
+    permission_required = 'blog.add_blog'
 
     # def form_valid(self, form):
     #     """Метод записи в поле slug"""
@@ -32,9 +34,10 @@ class BlogListView(generic.ListView):
         return queryset.filter(visibility=True).order_by('-date')
 
 
-class BlogEditListView(generic.ListView):
+class BlogEditListView(PermissionRequiredMixin, generic.ListView):
     model = Blog
     template_name = 'blog/blog_edit_list.html'
+    permission_required = 'blog.change_blog'
 
 
 class BlogDetailView(generic.DetailView):
@@ -58,18 +61,20 @@ class BlogDetailView(generic.DetailView):
         return self.object
 
 
-class BlogUpdateView(generic.UpdateView):
+class BlogUpdateView(PermissionRequiredMixin, generic.UpdateView):
     model = Blog
     fields = ['title', 'message', 'preview']
+    permission_required = 'blog.change_blog'
 
     def get_success_url(self):
         """Переопределение метода для работы со slug"""
         return reverse_lazy('blog:view', kwargs={'slug': self.object.slug})
 
 
-class BlogDeleteView(generic.DeleteView):
+class BlogDeleteView(PermissionRequiredMixin, generic.DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:blog_edit')
+    permission_required = 'blog.delete_blog'
 
 
 def toggle_visibility(request, pk):

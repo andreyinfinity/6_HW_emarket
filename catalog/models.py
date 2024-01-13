@@ -23,6 +23,7 @@ class Product(models.Model):
     date_modification = models.DateTimeField(auto_now=True)
     viewed = models.IntegerField(default=1, verbose_name='количество просмотров')
     owner = models.ForeignKey(to='users.User',  on_delete=models.SET_NULL, verbose_name='владелец', **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='опубликован')
 
     def __str__(self):
         return f'{self.name} ({self.description})\n{self.price}'
@@ -31,6 +32,7 @@ class Product(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
         ordering = ('name',)
+        permissions = [('Moderator', 'Can edit description, category, is_published')]
 
 
 class Category(models.Model):

@@ -11,6 +11,7 @@
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="grid-2 mt-5">
+        {% if not perms.catalog.Moderator %}
         <div>
             <p>Версия продукта</p>
             {% for form in formset.forms %}
@@ -21,6 +22,7 @@
             <hr>
             {% endfor %}
         </div>
+        {% endif %}
         <div>
             {{ form.as_div }}
             <input class="button-light-w" type="submit" value="Save">

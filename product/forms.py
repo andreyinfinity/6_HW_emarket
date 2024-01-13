@@ -29,11 +29,18 @@ def check_bad_words(word: str) -> bool:
     return False
 
 
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    """Форма редактирования продукта для модератора"""
+    class Meta:
+        model = Product
+        fields = ['description', 'category', 'is_published']
+
+
 class ProductForm(StyleFormMixin, forms.ModelForm):
     """Форма для создания и редактирования продукта"""
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'price', 'image']
+        fields = ['name', 'description', 'category', 'price', 'image', 'is_published']
 
     def clean_name(self):
         """Метод валидации поля name на запрещенные слова"""

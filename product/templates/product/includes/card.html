@@ -23,6 +23,8 @@
 	{% endif %}
 	<div class="my-3">
 		<a href="{% url 'product:update' product.pk %}" class="button-light-sm">update</a>
+		{% if not perms.catalog.Moderator %}
 		<a href="{% url 'product:delete' product.pk %}" class="button-light-sm">delete</a>
+		{% endif %}
 	</div>
 </div>

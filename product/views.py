@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.urls import reverse_lazy
 from django.views import generic
 from catalog.models import Product
-from product.forms import ProductForm, VersionForm
+from product.forms import ProductForm, VersionForm, ProductModeratorForm
 from product.models import Version
 # CRUD для товаров
 
@@ -29,6 +30,12 @@ class ProductList(LoginRequiredMixin, generic.ListView):
     template_name = 'product/product_list.html'
     login_url = 'users:login'
 
+    def get_queryset(self):
+        """Вывод товаров только текущего пользователя"""
+        if self.request.user.has_perm('catalog.Moderator'):
+            return super().get_queryset()
+        return super().get_queryset().filter(owner=self.request.user)
+
     def get_context_data(self, *, object_list=None, **kwargs):
         """Для вывода активной версии продукта в шаблон"""
         context_data = super().get_context_data(**kwargs)
@@ -49,10 +56,19 @@ class ProductList(LoginRequiredMixin, generic.ListView):
 class ProductUpdate(LoginRequiredMixin, generic.UpdateView):
     """Класс изменения товара"""
     model = Product
-    form_class = ProductForm
+    # form_class = ProductForm
     success_url = reverse_lazy('product:list')
     template_name = 'product/product_form.html'
     login_url = 'users:login'
+
+    def get_form_class(self):
+        """Выбор формы в зависимости от привилегий и принадлежности пользователю"""
+        if self.request.user.has_perm('catalog.Moderator'):
+            return ProductModeratorForm
+        elif self.request.user == self.object.owner:
+            return ProductForm
+        else:
+            raise Http404('Вы не можете редактировать чужие товары')
 
     def get_context_data(self, **kwargs):
         """Формсет для отображения формы версий продуктов при редактировании продукта"""
@@ -86,6 +102,13 @@ class ProductDelete(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('product:list')
     template_name = 'product/product_confirm_delete.html'
     login_url = 'users:login'
+
+    def get_object(self, queryset=None):
+        """Проверка на принадлежность объекта пользователю"""
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user:
+            raise Http404('Вы не имеете доступа для удаления этого продукта')
+        return self.object
 
 
 class VersionCreate(LoginRequiredMixin, generic.CreateView):
