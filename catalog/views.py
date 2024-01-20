@@ -1,6 +1,7 @@
 from django.views import generic
 from .forms import FeedbackForm
-from .models import Product, Contacts, Feedback
+from .models import Product, Contacts, Feedback, Category
+from .services import get_categories
 
 
 class IndexView(generic.TemplateView):
@@ -61,3 +62,14 @@ class CatalogView(generic.ListView):
     template_name = 'catalog/catalog.html'
     paginate_by = 8
 
+
+class CategoriesView(generic.TemplateView):
+    """Контроллер списка категорий с получением категорий из
+    сервисного слоя"""
+    template_name = 'catalog/category_list.html'
+
+    def get_context_data(self, **kwargs):
+        """Вывод закешированного списка категорий из сервисного слоя"""
+        context = super().get_context_data()
+        context['categories'] = get_categories()
+        return context
